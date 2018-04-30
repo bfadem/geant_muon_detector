@@ -1,0 +1,24 @@
+﻿James Silva - Answers to questions I had when I first started learning Geant4
+
+
+Intuition:
+* There are two folders that you have to keep in mind: one that holds all of the source code that you will be using and one that contains the executable.
+   * The folder with the executable is usually called the build folder and holds more tools than just the executable.
+   * You will see many .mac files and that is because Geant4 uses macros to run the simulation without having to touch the code. For example, if you want to change the particle going through the detector you might think to change the particle in the code and then recompile everything and run the simulation. It is much easier instead to change the particle type from a separate file (aka a macro file) and not have to touch any code.
+* Tip: Never start with your own code! The source code files for Geant4 has a directory in it called examples with tons of different physics simulations. For example, if you want to use a sensitive detector to capture particle data then you should find an example that uses one and modify it.
+* Most of your problems will by C++ problems and strong understanding of object oriented programming is essential for designing your own simulations. If you don’t have this experience then your options are very limited.
+   * The most you can do is find someone else’s code and interact with it to extract results through the use of macro files. If you were to make some adjustments then it’d be in the Detector Construction and Primary Generator Action because these classes are very much self contained and can be places to make useful changes.
+* Classes:
+   * RunAction gets its information from running a series of events using the EventAction
+   * The EventAction generates particles using the PrimaryGeneratorAction and captures the data of particular steps using the SteppingAction.
+   * Steps hold changes in data (ex. Change in Energy)
+* Learning Strategy:
+   * It’s tempting to jump in to a basic example and start fiddling around, but you there are a few things you should know first:
+   * The Geant4 user guide is all your going to get! It was recently updated but in general it is quite vague and doesn’t get into the specifics of writing Geant simulations. Thus you will need to play with the code and read the documentation at the same time.
+   * But what do I change when I want to play around. There are three answers. First, you can run the program with the visualizer and run commands from the window that pops up. This is useful when you want to examine the geometry of the detector and see how particles are moving through the detector. You’ll want to use this approach when debugging your detector. Assuming you are done with your detector design or are testing a pre-made example you’ll want to make changes to the macro files used to run the program. These changes can include how the particle is generated, the type or particle, and the number of particles you want to generate. 
+      * And if I want to play around with the code? The easiest places to make changes are in detector construction and primary generator as mentioned earlier.
+* Very General File Uses:
+   * Project.cc: There is usually not much to change in this file because it handles how the visualizer is used
+   * CMakeLists.txt: Deals with calling all of the headers and source files. It is also where root is included
+   * *.mac: These macro files are used to interact with the simulation code without having to touch the code. Some macros deal with particle type and the number generated and others deal with how the visualizer is set up. 
+      * There are commands that are run in these macros that are built in to Geant4 and others that are created with the use of messenger classes. Messenger Classes allow the builder to create specific macro commands for their simulation.
