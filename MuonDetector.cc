@@ -1,12 +1,6 @@
 #include "DetectorConstruction.hh"
 #include "ActionInitialization.hh"
 
-#ifdef G4MULTITHREADED
-#include "G4MTRunManager.hh"
-#else
-#include "G4RunManager.hh"
-#endif
-
 #include "G4UImanager.hh"
 #include "FTFP_BERT.hh"
 
